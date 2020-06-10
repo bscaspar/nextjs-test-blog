@@ -3,12 +3,15 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import { Container, Row, Col } from 'reactstrap';
 import Typed from 'react-typed';
 import BasePage from '@/components/BasePage';
+import { useGetUser } from '@/actions/user';
 
 const ROLES = ['Developer', 'Tech Lover', 'Team Player'];
 
 const Index = () => {
+  const { data, error, loading } = useGetUser();
+
   return (
-    <BaseLayout className='cover'>
+    <BaseLayout className='cover' user={data} loading={loading} navClass='transparent'>
       <div className='main-section'>
         <div className='background-image'>
           <img src='/images/background-index.png' />

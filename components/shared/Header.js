@@ -22,15 +22,19 @@ const LoginLink = () => (
     Login
   </a>
 );
-const LogoutLink = () => <span className='nav-link port-navbar-link clickable'>Logout</span>;
+const LogoutLink = () => (
+  <a className='nav-link port-navbar-link' href='/api/v1/logout'>
+    Logout
+  </a>
+);
 
-const Header = () => {
+const Header = ({ user, loading, className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <div>
-      <Navbar className='port-navbar port-default absolute' color='transparent' dark expand='md'>
+      <Navbar className={`port-navbar port-default absolute ${className}`} dark expand='md'>
         <BsNavBrand />
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -50,14 +54,34 @@ const Header = () => {
             <NavItem className='port-navbar-item'>
               <BsNavLink href='/cv' title='Cv' />
             </NavItem>
+            <NavItem className='port-navbar-item'>
+              <BsNavLink href='/secret' title='Secret' />
+            </NavItem>
+            <NavItem className='port-navbar-item'>
+              <BsNavLink href='/secretssr' title='Secretssr' />
+            </NavItem>
+            <NavItem className='port-navbar-item'>
+              <BsNavLink href='/onlyadmin' title='admin' />
+            </NavItem>
+            <NavItem className='port-navbar-item'>
+              <BsNavLink href='/onlyadminssr' title='adminssr' />
+            </NavItem>
           </Nav>
           <Nav navbar>
-            <NavItem className='port-navbar-item'>
-              <LoginLink />
-            </NavItem>
-            <NavItem className='port-navbar-item'>
-              <LogoutLink />
-            </NavItem>
+            {!loading && (
+              <>
+                {user && (
+                  <NavItem className='port-navbar-item'>
+                    <LogoutLink />
+                  </NavItem>
+                )}
+                {!user && (
+                  <NavItem className='port-navbar-item'>
+                    <LoginLink />
+                  </NavItem>
+                )}
+              </>
+            )}
           </Nav>
         </Collapse>
       </Navbar>
