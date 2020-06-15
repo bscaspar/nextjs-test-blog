@@ -77,7 +77,7 @@ const Portfolios = ({ portfolios: initialPortfolios }) => {
 export async function getStaticProps() {
   const json = await new PortfolioApi().getAll();
   const portfolios = json.data;
-  return { props: { portfolios } };
+  return { props: { portfolios }, unstable_revalidate: 1 };
 }
 
 export default Portfolios;
